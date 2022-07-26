@@ -3,6 +3,7 @@ const Product = require('./Product');
 const Category = require('./Category');
 const Tag = require('./Tag');
 const ProductTag = require('./ProductTag');
+const { NULL } = require('mysql2/lib/constants/types');
 
 // Products belongsTo Category
 Product.belongsTo(Category, {
@@ -11,13 +12,17 @@ Product.belongsTo(Category, {
 // Categories have many Products
 Category.hasMany(Product, {
   foreignKey: 'category_id',
+  onDelete: 'SET NULL',
 });
 // Products belongToMany Tags (through ProductTag)
-Product.belongToMany(Tag, {
+Product.belongsToMany(Tag, {
+  through: ProductTag,
   foreignKey: 'ProductTag',
+  onDelete: 'SET NULL',
 })
 // Tags belongToMany Products (through ProductTag)
-Product.belongToMany(Tag, {
+Tag.belongsToMany(Product, {
+  through: ProductTag,
   foreignKey: 'ProductTag',
 })
 module.exports = {
@@ -27,5 +32,7 @@ module.exports = {
   ProductTag,
 };
 
+
+//A.belongsToMany(B, { through: 'C' });
 
 

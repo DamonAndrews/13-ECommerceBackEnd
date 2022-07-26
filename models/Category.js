@@ -13,25 +13,18 @@ Category.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    product_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'id',
-        },
+    category_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    tag_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'id',
-        },
-  },
+},
   {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'category',
-  }
+  },
 );
 
 module.exports = Category;

@@ -3,9 +3,9 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 // The `/api/tags` endpoint
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const productTagData = await ProductTag.findAll({
+    const productTagData = await Tag.findAll({
       include: [{ model: Product }],
     });
     res.status(200).json(productTagData);
@@ -16,10 +16,10 @@ router.get('/', (req, res) => {
   // be sure to include its associated Product data
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const productTagData = await ProductTag.findByPk(req.params.id, {
-      include: [{ model: Category }],
+    const productTagData = await Tag.findByPk(req.params.id, {
+      include: [{ model: Product }],
     });
     if (!productTagData) {
       res.status(404).json({ message: 'No product tag found with that id!' });
@@ -33,11 +33,9 @@ router.get('/:id', (req, res) => {
   // be sure to include its associated Product data
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const productTagData = await ProductTag.create({
-      category_id: req.body.category_id,//fix this
-    });
+    const productTagData = await Tag.create(req.body);
     res.status(200).json(productTagData);
   } catch (err) {
     res.status(400).json(err);
@@ -45,9 +43,9 @@ router.post('/', (req, res) => {
   // create a new tag
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
-    const productTagData = await ProductTag.update(req.body, {
+    const productTagData = await Tag.update(req.body, {
       where: {
         id: req.params.id,
       },
@@ -63,11 +61,11 @@ router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
-    const productTagData = await ProductTag.destroy({
+    const productTagData = await Tag.destroy({
       where: {
-        category_id: req.params.category_id,
+        id: req.params.id,
       },
 });
 if (!productTagData) {
