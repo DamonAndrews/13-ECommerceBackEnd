@@ -19,3 +19,4 @@ Video Demo Link:
 
 https://drive.google.com/file/d/1gzwEgoTI3OAYRz48NLBAwLMw4bDn60iL/view
 
+![ecommerce_backend_pic](https://user-images.githubusercontent.com/107002411/190228138-d52f102c-2475-4f0f-887a-c36a6f6ebded.jpg)
